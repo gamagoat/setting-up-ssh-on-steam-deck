@@ -1,11 +1,11 @@
 # Enable SSH Access on a Steam Deck
 
-Performing maintenance on a Steam Deck through Desktop mode is a bit of a hassle.
-This guide helps you avoid that hassle by setting up ssh access to your Deck.
+Performing maintenance on a steam deck through Desktop mode is a bit of a hassle.
+This guide helps you avoid that hassle by setting up ssh access to your deck.
 
 ## Preparing the Steam deck
 
-Unfortunately, we do need to use Desktop mode a bit to get ssh access working.
+Unfortunately, we need to use Desktop mode a bit to get ssh access working.
 
 Swap to Desktop mode (Open the Steam menu, `Power > Switch to Desktop`)
 
@@ -27,7 +27,7 @@ sudo systemctl enable --now ssh
 
 I prefer my local devices to be accessible by hostname or a static IP.  There
 are issues with dns resolution of the steam deck that I haven't completed
-troubleshooting for yet, so we'll go the static IP route for now.
+troubleshooting yet, so we'll go the static IP route for now.
 
 ### Finding your Deck's MAC address
 
@@ -45,7 +45,7 @@ Typically, you'll access your router via a browser using an address like:
 
 After authenticating, you should look for a way to reserve IP addresses.  You
 may want to lookup instructions on how to do this for your particular router.
-Note that it may be under advanced setup options.  I use a Netgear router,
+Note that it may be under advanced setup options.  I use a NetGear router,
 and can reserve addresses at `Advanced Setup > Setup > LAN Setup > Address Reservation`.
 
 Add a new entry, giving a static IP to the MAC address you found earlier.
@@ -61,19 +61,32 @@ materials for troubleshooting static IP issues here as I come across them.
 
 ## Preparing your personal machine
 
-Generate an SSH key pair
+### Generate an SSH key pair
+
+Open a terminal and run
 
 ```sh
 ssh-keygen -t ed25519
 ```
 
-Install `ssh-copy-id` using your favorite package manager
+You should be prompted with something like:
+
+```txt
+Enter file in which to save the key (/home/<username>/.ssh/id_rsa):
+```
+
+Enter a name, such as `/home/<username>/.ssh/deck`.  This is your identity file.
+
+Install `ssh-copy-id` using your favorite package manager, i.e.:
 
 ```sh
 brew install ssh-copy-id
 ```
 
-Copy your public key to the steam deck
+Copy your public key to the steam deck.  If you don't already know your deck's
+IP, you can follow the same instructions for viewing your MAC address to find
+your IP [here](#finding-your-decks-mac-address).  When you have your  IP
+address, run:
 
 ```sh
 ssh-copy-id -i ~/.ssh/<identity>.pub deck@<steam deck ip>
@@ -90,6 +103,6 @@ Host deck
 
 Connect
 
-```
+```sh
 ssh deck
 ```
