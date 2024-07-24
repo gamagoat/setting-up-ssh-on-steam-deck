@@ -1,6 +1,9 @@
+# Enable SSH Access on a Steam Deck
+
 Desktop mode on the steam deck is a bit of a hassle.  It doesn't have to be.
 
-# Preparing the Steam Deck
+## Preparing the Steam Deck
+
 Swap to Desktop mode (Open the Steam menu, `Power > Switch to Desktop`
 
 Open the Application Launcher and run `Konsole`
@@ -12,8 +15,9 @@ passwd
 ```
 
 Enable and start the ssh daemon
+
 ```sh
-sudo systemctl enable sshd && sudo systemctl start sshd
+sudo systemctl enable --now ssh
 ```
 
 Find the deck's IP address
@@ -22,11 +26,12 @@ Find the deck's IP address
 ip addr | grep inet | grep wlan0
 ```
 
-# Preparing your router
-// TODO -- need MAC address or what?
+## Preparing your router
+
 Access your router and assign a static IP to your steam deck
 
-# Preparing your personal machine
+## Preparing your personal machine
+
 Generate an SSH key pair
 
 ```sh
